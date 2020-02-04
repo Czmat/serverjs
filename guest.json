@@ -1,1 +1,6 @@
-{"name": "moe"}
+[
+  {
+    "name": "moe"
+  },
+  "{\"name\":\"asdf\"}"
+]

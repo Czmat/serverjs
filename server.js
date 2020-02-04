@@ -3,9 +3,9 @@ const fs = require('fs');
 
 http
   .createServer(function(req, res) {
-    if (req.url === '/api/guests' && req.method === 'POST') {
-      let buffer = '';
+    if (req.url === '/api/guest' && req.method === 'POST') {
       console.log('test');
+      let buffer = '';
       req.on('data', chunk => {
         buffer += chunk;
       });
@@ -54,9 +54,10 @@ const writeFile = (file, data) => {
 };
 
 const addGuest = guest => {
-  return readFile('./guests.json')
+  return readFile('./guest.json')
     .then(data => {
-      const guests = JSON.parse(data);
+      console.log(JSON.parse(data))
+      const guests = [JSON.parse(data)]
       let max = guests.reduce((acc, guest) => {
         if (guest.id > acc) {
           acc = guest.id;
@@ -65,7 +66,7 @@ const addGuest = guest => {
       }, 0);
       guest.id = max + 1;
       guests.push(guest);
-      return writeFile('./guests.json', JSON.stringify(guests, null, 2));
+      return writeFile('./guest.json', JSON.stringify(guests, null, 2));
     })
     .then(() => {
       return guest;

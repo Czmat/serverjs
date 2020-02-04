@@ -26,12 +26,18 @@
             .post('/api/guest', {
               name: user,
             })
-            .then(response => setUser());
+            .then(function (response) {
+            setUser("")
+            console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         };
         return (
           <div>
-            <input onChange={onChange} />
-            <button onSubmit={onSubmit}> Submit </button>
+            <input value={user} onChange={onChange} />
+            <button onClick={onSubmit}> Submit </button>
           </div>
         );
       };
