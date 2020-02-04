@@ -56,16 +56,19 @@ const writeFile = (file, data) => {
 const addGuest = guest => {
   return readFile('./guest.json')
     .then(data => {
-      console.log(JSON.parse(data))
-      const guests = [JSON.parse(data)]
+      //console.log(guest);
+      const guests = JSON.parse(data);
       let max = guests.reduce((acc, guest) => {
-        if (guest.id > acc) {
-          acc = guest.id;
+        console.log(JSON.parse(guest).id);
+        if (JSON.parse(guest).id > acc) {
+          console.log('if statement reacted');
+          acc = JSON.parse(guest).id;
         }
         return acc;
       }, 0);
-      guest.id = max + 1;
-      guests.push(guest);
+      console.log('max', (JSON.parse(guest).id = max + 1));
+      JSON.parse(guest).id = max + 1;
+      guests.push(JSON.parse(guest));
       return writeFile('./guest.json', JSON.stringify(guests, null, 2));
     })
     .then(() => {
