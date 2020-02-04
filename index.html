@@ -15,22 +15,28 @@
     <h1>My React App</h1>
     <div id="root"></div>
     <script type="text/babel">
-    const {useEffect, useState} = React;
-    const App = () => {
-    const [user, setUser] = useState("")
-    const onChange = (e) => {
-        setUser(e.target.value)
-    }
-    const onSubmit = () => { 
-        
-    }
-        return (<div> 
-            <input onChange={onChange}/>
-            <button onSubmit={onSubmit}> Submit </button> 
-            </div>)
-    }
+      const { useEffect, useState } = React;
+      const App = () => {
+        const [user, setUser] = useState('');
+        const onChange = e => {
+          setUser(e.target.value);
+        };
+        const onSubmit = () => {
+          axios
+            .post('/api/guest', {
+              name: user,
+            })
+            .then(response => setUser());
+        };
+        return (
+          <div>
+            <input onChange={onChange} />
+            <button onSubmit={onSubmit}> Submit </button>
+          </div>
+        );
+      };
 
-      ReactDOM.render(<App/>, document.querySelector('#root'));
+      ReactDOM.render(<App />, document.querySelector('#root'));
     </script>
   </body>
 </html>

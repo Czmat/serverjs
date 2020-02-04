@@ -3,22 +3,23 @@ const fs = require('fs');
 
 http
   .createServer(function(req, res) {
-    if(req.url === '/api/guests' && req.method === 'POST'){
-        let buffer = '';
-        req.on('data', (chunk)=> {
-          buffer += chunk;
-        });
-        req.on('end', ()=> {
-          //your code here
-          //the buffer will be the data sent to the server on POST request to /api/guests
-        });
-      }
-    else if (req.url === '/api/guest' && req.method === "GET") {
+    if (req.url === '/api/guests' && req.method === 'POST') {
+      let buffer = '';
+      console.log('test');
+      req.on('data', chunk => {
+        buffer += chunk;
+      });
+      req.on('end', () => {
+        addGuest(buffer);
+        res.write('posted');
+        res.end();
+      });
+    } else if (req.url === '/api/guest' && req.method === 'GET') {
       readFile('./guest.json').then(html => {
         res.write(html);
         res.end();
       });
-    } else if (req.url === '/' && req.method === "GET") {
+    } else if (req.url === '/' && req.method === 'GET') {
       readFile('./index.html').then(html => {
         res.write(html);
         res.end();
